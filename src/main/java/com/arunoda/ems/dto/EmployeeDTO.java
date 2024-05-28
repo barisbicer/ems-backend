@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 
+//Data Transfer Object
 public class EmployeeDTO {
     private Long id;
     private String firstName;
