@@ -2,6 +2,7 @@ package com.arunoda.ems.service.impl;
 
 import com.arunoda.ems.dto.EmployeeDTO;
 import com.arunoda.ems.entity.Employee;
+import com.arunoda.ems.exception.ResourceNotFoundException;
 import com.arunoda.ems.mapper.EmployeeMapper;
 import com.arunoda.ems.repository.EmployeeRepository;
 import com.arunoda.ems.service.EmployeeService;
@@ -21,5 +22,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee savedEmployee =  employeeRepository.save(employee);
 
         return EmployeeMapper.mapToEmployeeDTO(savedEmployee);
+    }
+
+    @Override
+    public EmployeeDTO getEmployeeById(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee with the id: " + employeeId + "does not exist"));
+        return EmployeeMapper.mapToEmployeeDTO(employee);
     }
 }
